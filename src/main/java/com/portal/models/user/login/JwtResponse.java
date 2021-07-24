@@ -1,0 +1,16 @@
+package com.portal.models.user.login;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class JwtResponse {
+	private String token;
+	private String activeFistName;
+	private String  activeLastName;
+	private String role;
+
+}
