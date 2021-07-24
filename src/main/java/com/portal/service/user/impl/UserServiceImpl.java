@@ -33,6 +33,19 @@ private UserRepository userRepository;
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public User updateUser(User user) {
+		User user1 = null;
+		try
+		{
+		  user1 = this.userRepository.save(user);
+		  return user1;
+		}catch (Exception e) {
+		e.printStackTrace();
+		return user1;
+		}
+	}
 	
 
 }

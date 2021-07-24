@@ -46,8 +46,9 @@ public class UserRegistrationController {
 		int GeneratedOtp = otpService.generateOTP(request.getUsername());
 		String GeneratedOtpString = Integer.toString(GeneratedOtp);
 		MailRequest mailRequest = new MailRequest();
-		mailRequest.setMessage(GeneratedOtpString);
+		mailRequest.setMessage("Your Registration OTP ("+GeneratedOtpString+")");
 		mailRequest.setReceiverAddress(request.getUsername());
+		mailRequest.setSubject("OTP For Registration");
 		log.info("send OTP on the user email");
 		mailService.sendemail(mailRequest);
 		return ResponseEntity.status(HttpStatus.OK).build();
