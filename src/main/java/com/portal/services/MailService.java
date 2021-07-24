@@ -55,7 +55,7 @@ public class MailService {
 			 //m.addRecipient(msg.RecipientType.to, null);
 			 m.addRecipient(Message.RecipientType.TO, new InternetAddress(mailRequest.getReceiverAddress()));
 			// adding subject to message
-			 m.setSubject("For Registration OTP");
+			 m.setSubject(mailRequest.getSubject());
 			 // adding text to message
 			 m.setText(mailRequest.getMessage());
 			 

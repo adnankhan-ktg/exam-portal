@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class MailRequest {
 	private String receiverAddress;
 	private String message;
+	private String subject;
 
 }
