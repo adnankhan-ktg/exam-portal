@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +33,8 @@ public class ForgetPasswordController {
 	private MailService mailService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@PostMapping("/get_passwordforget_otp")
@@ -91,7 +94,8 @@ public class ForgetPasswordController {
 	    {
 	    	if(updatePassword.getId().equals(user.getFirstName()+user.getPhone()) == true)
 	    	{
-	    		user.setPassword(updatePassword.getPassword());
+                                                    	    		
+	    		user.setPassword(this.passwordEncoder.encode(updatePassword.getPassword()));
     	    	User user12 = this.userService.updateUser(user);
    
     	    	return ResponseEntity.status(HttpStatus.OK).build();

@@ -21,7 +21,7 @@ public class User {
 	private String lastName;
 	private String phone;
 	private String role = "NORMAL";
-	private boolean enable = true;
+	private boolean status = true;
 	private String otp;
 
 }

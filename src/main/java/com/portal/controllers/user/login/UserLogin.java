@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,20 +29,24 @@ public class UserLogin {
 	private JwtUserDetailsService jwtUserDetailsService;
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody JwtRequest request)
 	{
-		
-		if(this.userRepository.findByUsername(request.getUsername()) != null)
+		User u = this.userRepository.findByUsername(request.getUsername());
+//		if(this.userRepository.findByUsername(request.getUsername()) != null)
+		if(u != null)
 		{
-			
-			User tempUser = this.userRepository.findByUsernameAndPassword(request.getUsername(), request.getPassword());
-			if(tempUser != null)
+//			System.out.println(passwordEncoder.matches(request.getPassword(), u.getPassword()));
+//			User tempUser = this.userRepository.findByUsernameAndPassword(request.getUsername(), request.getPassword());
+		
+			if(passwordEncoder.matches(request.getPassword(), u.getPassword()))
 			{
 				final UserDetails userDetails  = this.jwtUserDetailsService.loadUserByUsername(request.getUsername());
 				String token = this.jwtTokenUtil.generateToken(userDetails);
-				return ResponseEntity.status(HttpStatus.OK).body(new JwtResponse(token,tempUser.getFirstName(),tempUser.getLastName(),tempUser.getRole()));
+				return ResponseEntity.status(HttpStatus.OK).body(new JwtResponse(token,u.getFirstName(),u.getLastName(),u.getPhone(),u.isStatus(),u.getRole()));
 				
 			}
 			else {

@@ -13,6 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.portal.services.JwtUserDetailsService;
 
@@ -21,6 +23,7 @@ import com.portal.services.JwtUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Service
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -39,10 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Use BCryptPasswordEncoder
 		auth.userDetailsService(jwtUserDetailsService);
 	}
-
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		 return new  BCryptPasswordEncoder();
+		 
+	
 	}
 
 	@Bean
