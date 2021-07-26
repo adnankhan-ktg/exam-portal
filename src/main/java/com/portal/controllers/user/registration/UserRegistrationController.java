@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,8 @@ public class UserRegistrationController {
 	private MailService mailService;
 	@Autowired
 	private UserService userService;
+//	@Autowired
+//	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	@PostMapping("/registration_otp")
 	public ResponseEntity<?> getOtp(@RequestBody Request request)
@@ -42,7 +45,7 @@ public class UserRegistrationController {
 			log.debug("user already registerd");
 			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
 		}
-		
+         log.info("user not exits");
 		int GeneratedOtp = otpService.generateOTP(request.getUsername());
 		String GeneratedOtpString = Integer.toString(GeneratedOtp);
 		MailRequest mailRequest = new MailRequest();
@@ -74,6 +77,7 @@ public class UserRegistrationController {
 			otpService.clearOTP(user.getUsername());
 			
 			 User tempUser = null;
+//			 user.setPassword(this.bcryptPasswordEncoder.encode(user.getPassword()));
 			 tempUser = this.userService.addUser(user);
 			 if(tempUser != null)
 			 {

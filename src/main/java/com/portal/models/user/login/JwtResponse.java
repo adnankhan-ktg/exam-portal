@@ -11,6 +11,8 @@ public class JwtResponse {
 	private String token;
 	private String activeFirstName;
 	private String  activeLastName;
+	private String phone;
+	private boolean status; 
 	private String role;
 
 }
