@@ -1,5 +1,6 @@
 package com.portal.service.content.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,25 +34,51 @@ public class QuizServiceImpl implements QuizService {
 
 	@Override
 	public Quiz updateQuiz(Quiz quiz) {
-		// TODO Auto-generated method stub
-		return null;
+
+        Quiz tempQuiz = null;
+        try {
+               tempQuiz = this.quizRepository.save(quiz);
+               return tempQuiz;
+        }catch (Exception e) {
+		   e.printStackTrace();
+		   return tempQuiz;
+		}
 	}
 
 	@Override
-	public Set<Quiz> getQuizzez() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Quiz> getQuizzez() {
+	  List<Quiz> list = null;
+	  try {
+		  list = this.quizRepository.findAll();
+		  return list;
+	  }
+	  catch (Exception e) {
+	   e.printStackTrace();
+	   return list;
+	}
+	  
 	}
 
 	@Override
 	public Quiz getQuiz(Long quizId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+		   Quiz quiz = null;
+		   try {
+			       quiz = this.quizRepository.findByQid(quizId);
+			       return quiz;
+		   }catch (Exception e) {
+			e.printStackTrace();
+			return quiz;
+		}
 	}
 
 	@Override
 	public void deleteQuiz(Long quizId) {
-		// TODO Auto-generated method stub
+		try {
+			this.quizRepository.deleteById(quizId);
+		}catch (Exception e) {
+		    e.printStackTrace();
+		}
 
 	}
 

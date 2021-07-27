@@ -6,4 +6,5 @@ import com.portal.models.content.Question;
 
 public interface QuestionRepository extends MongoRepository<Question, Long> {
 
+	  public Question findByQuesid(long id);
 }

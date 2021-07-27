@@ -1,5 +1,6 @@
 package com.portal.service.content.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,26 +29,48 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Question updateQuestion(Question question) {
-		// TODO Auto-generated method stub
-		return null;
+		Question tempQuestion = null;
+		try {
+	            tempQuestion = this.questionRepository.save(question);
+	            return tempQuestion;
+		}catch (Exception e) {
+	        e.printStackTrace();
+	        return tempQuestion;
+		}
 	}
 
 	@Override
-	public Set<Question> getQuestions() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Question> getQuestions() {
+		List<Question> list = null;
+		try {
+			list = this.questionRepository.findAll();
+			return list;
+		}
+		catch (Exception e) {
+		  e.printStackTrace();
+		  return list;
+		}
 	}
 
 	@Override
 	public Question getQuestion(Long questionId) {
-		// TODO Auto-generated method stub
-		return null;
+		Question question = null;
+		try {
+			question = this.questionRepository.findByQuesid(questionId);
+			return question;
+		}catch (Exception e) {
+		 e.printStackTrace();
+		 return question;
+		}
 	}
 
 	@Override
 	public void deleteQuestion(Long questionId) {
-		// TODO Auto-generated method stub
-
+            try {
+            	this.questionRepository.deleteById(questionId);
+            }catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 
 }
