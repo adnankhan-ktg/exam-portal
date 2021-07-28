@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.models.content.Category;
+import com.portal.models.content.Quiz;
+import com.portal.repository.content.QuizRepository;
 import com.portal.service.content.CategoryService;
 
 @RestController
@@ -27,6 +29,8 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private QuizRepository quizRepository;
 
 	 private static final Logger log = LoggerFactory.getLogger(CategoryController.class);
 	
@@ -76,6 +80,12 @@ public class CategoryController {
 	 @PostMapping("/delete_category/{cid}")
 	 public ResponseEntity<?> deleteCategory(@PathVariable("cid") long id)
 	 {
+		 List<Quiz> list = null; 
+		list = this.quizRepository.findByCid(id);
+		 if(list.size() != 0)
+		 {
+			 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+		 }
 		 log.info("Request came on the delete category controller");
 		 this.categoryService.deleteCategory(id);
 		 return ResponseEntity.status(HttpStatus.OK).build();

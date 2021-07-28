@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portal.models.content.Question;
 import com.portal.models.content.Quiz;
+import com.portal.repository.content.QuestionRepository;
 import com.portal.service.content.QuizService;
 @RestController
 @CrossOrigin
@@ -26,6 +28,8 @@ public class QuizController {
 	private static final Logger log = LoggerFactory.getLogger(QuizController.class);
 	@Autowired
 	private QuizService quizService;
+	@Autowired
+	private QuestionRepository questionRepository;
 	@PostMapping("/add_quiz")
 	public ResponseEntity<?> addQuiz(@RequestBody Quiz quiz)
 	{
@@ -91,6 +95,12 @@ public class QuizController {
 	@PostMapping("/delete_quiz/{id}")
 	public ResponseEntity<?> deleteQuiz(@PathVariable("id") long id )
 	{
+		List<Question> list = null; 
+		list = this.questionRepository.findByQid(id);
+		 if(list.size() != 0)
+		 {
+			 return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+		 }
 		this.quizService.deleteQuiz(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
