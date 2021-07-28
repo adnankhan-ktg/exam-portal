@@ -26,10 +26,10 @@ public class QuizController {
 	private static final Logger log = LoggerFactory.getLogger(QuizController.class);
 	@Autowired
 	private QuizService quizService;
-	
 	@PostMapping("/add_quiz")
 	public ResponseEntity<?> addQuiz(@RequestBody Quiz quiz)
 	{
+	    
 		log.info("Request came on the add Quiz controller");
 		
 		Quiz tempQuiz = this.quizService.addQuiz(quiz);

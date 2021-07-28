@@ -1,5 +1,6 @@
 package com.portal.controllers.content;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,7 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portal.models.content.Category;
 import com.portal.models.content.Question;
+import com.portal.models.content.Quiz;
+import com.portal.models.content.temp.Temp;
+import com.portal.repository.content.CategoryRepository;
+import com.portal.repository.content.QuizRepository;
 import com.portal.service.content.QuestionService;
 
 @RestController
@@ -25,6 +31,11 @@ public class QuestionController {
 	
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private CategoryRepository categoryRepository;
+	@Autowired
+	private QuizRepository quizRepository;
+	
 	private static final Logger log = LoggerFactory.getLogger(QuestionController.class);
 	
 	@PostMapping("/add_question")
@@ -101,12 +112,24 @@ public class QuestionController {
 	@PostMapping("/get_specific_question/{id}")
 	public ResponseEntity<?> getAllQuestionsByQuizId(@PathVariable("id") long qid)
 	{
+//		Category tempCategory = this.categoryRepository.findByCid(qid);
+		
+		Quiz tempQuiz = this.quizRepository.findByQid(qid);
+		int number = Integer.parseInt(tempQuiz.getNumberOfQuestions());
+		
 		log.info("Request came on the Get questions by id controller");
-		List<Question> list = null;
-		list = this.questionService.getAllQuestionsByQuizId(qid);
+		ArrayList<Question> list = new ArrayList<>();
+		list = (ArrayList<Question>) this.questionService.getAllQuestionsByQuizId(qid);
 		if(list.size() != 0)
 		{
-			return ResponseEntity.status(HttpStatus.OK).body(list);
+			if(list.size() <= number)
+			{
+				log.info("list");
+				return ResponseEntity.status(HttpStatus.OK).body(list);
+			}
+			  ArrayList<Question> list1 = new ArrayList<>(list.subList(0, number));
+			  log.info("list1");
+			return ResponseEntity.status(HttpStatus.OK).body(list1);
 		}else {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
