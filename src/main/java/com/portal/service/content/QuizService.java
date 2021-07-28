@@ -12,6 +12,7 @@ public interface QuizService {
 	public List<Quiz> getQuizzez();
 	public Quiz getQuiz(Long quizId);
 	public void deleteQuiz(Long quizId);
+	public List<Quiz> findAllByCid(long cid);
 	
 	
 

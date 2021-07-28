@@ -22,7 +22,7 @@ public class Question {
 	private String option3;
 	private String option4;
 	private String answer;
-	private long quiz_id;
+	private long qid;
 	
 
 }

@@ -82,4 +82,17 @@ public class QuizServiceImpl implements QuizService {
 
 	}
 
+	@Override
+	public List<Quiz> findAllByCid(long cid) {
+		  List<Quiz> list = null;
+		  try {
+			  list = this.quizRepository.findByCid(cid);
+			  return list;
+		  }catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		}
+	}
+	
+
 }

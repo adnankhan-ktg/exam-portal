@@ -95,4 +95,19 @@ public class QuizController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	
+	@PostMapping("/get_specific_quiz/{id}")
+	public ResponseEntity<?> getAllQuizzezById(@PathVariable("id") long cid)
+	{
+		 List<Quiz> list = null;
+		 list = this.quizService.findAllByCid(cid);
+		 if(list.size() != 0)
+		 {
+			 return ResponseEntity.status(HttpStatus.OK).body(list);
+		 }else {
+			 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		 }
+		 
+		 
+	}
+	
 }
