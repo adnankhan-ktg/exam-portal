@@ -97,5 +97,19 @@ public class QuestionController {
 		return ResponseEntity.status(HttpStatus.OK).build();
 		
 	}
+	
+	@PostMapping("/get_specific_question/{id}")
+	public ResponseEntity<?> getAllQuestionsByQuizId(@PathVariable("id") long qid)
+	{
+		log.info("Request came on the Get questions by id controller");
+		List<Question> list = null;
+		list = this.questionService.getAllQuestionsByQuizId(qid);
+		if(list.size() != 0)
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
+		}else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+	}
 
 }

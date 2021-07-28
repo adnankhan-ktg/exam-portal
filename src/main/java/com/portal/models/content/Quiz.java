@@ -20,6 +20,6 @@ public class Quiz {
 	private String maxMarks;
 	private String numberOfQuestions;
 	private boolean active = false; 
-	private long category_id;;
+	private long cid;;
  
 }

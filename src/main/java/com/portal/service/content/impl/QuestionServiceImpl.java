@@ -73,4 +73,16 @@ public class QuestionServiceImpl implements QuestionService {
 			}
 	}
 
+	@Override
+	public List<Question> getAllQuestionsByQuizId(long qid) {
+		List<Question> list = null;
+		try {
+			list = this.questionRepository.findByQid(qid);
+			return list;
+		}catch (Exception e) {
+		e.printStackTrace();
+		return list;
+		}
+	}
+
 }
