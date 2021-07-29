@@ -20,6 +20,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String phone;
+	private String profile;
 	private String role = "NORMAL";
 	private boolean status = true;
 	private String otp;
