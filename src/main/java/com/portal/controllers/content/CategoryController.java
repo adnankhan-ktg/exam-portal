@@ -38,7 +38,12 @@ public class CategoryController {
 	public ResponseEntity<?> addCategory(@RequestBody Category category )
 	{
 		log.info("The request came on the Add_Category controller");
-		
+		        
+		         Category tempCategory = this.categoryService.getCategory(category.getCid());
+		         if(tempCategory != null)
+		         {
+		        	 return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
+		         }
 		        Category cat = this.categoryService.addCategory(category);
 		        if(cat != null)
 		        {
