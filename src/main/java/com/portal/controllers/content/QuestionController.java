@@ -107,6 +107,7 @@ public class QuestionController {
 		this.questionService.deleteQuestion(id);
 		return ResponseEntity.status(HttpStatus.OK).build();
 		
+		
 	}
 	
 	@PostMapping("/get_specific_question/{id}")
@@ -130,6 +131,23 @@ public class QuestionController {
 			  ArrayList<Question> list1 = new ArrayList<>(list.subList(0, number));
 			  log.info("list1");
 			return ResponseEntity.status(HttpStatus.OK).body(list1);
+		}else {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+	}
+	
+	///////////////////////////////////////////////////////////
+	
+	@PostMapping("/get_specific_question_admin/{id}")
+	public ResponseEntity<?> getAllQuestionsByQuizIdAdmin(@PathVariable("id") long qid)
+	{
+		
+		log.info("Request came on the Get questions by id controller(ADMIN)");
+		ArrayList<Question> list = new ArrayList<>();
+		list = (ArrayList<Question>) this.questionService.getAllQuestionsByQuizId(qid);
+		if(list.size() != 0)
+		{
+			return ResponseEntity.status(HttpStatus.OK).body(list);
 		}else {
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		}
