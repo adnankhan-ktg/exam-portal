@@ -1,6 +1,7 @@
 package com.portal.controllers.content;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,6 +114,23 @@ public class QuizController {
 		 if(list.size() != 0)
 		 {
 			 return ResponseEntity.status(HttpStatus.OK).body(list);
+		 }else {
+			 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		 }
+		 
+		 
+	}
+	
+	
+	@PostMapping("/get_active_specific_quiz/{id}")
+	public ResponseEntity<?> getAllActiveQuizzezById(@PathVariable("id") long cid)
+	{
+		 List<Quiz> list = null;
+		 list = this.quizService.findAllByCid(cid);
+		 if(list.size() != 0)
+		 {
+			 List<Quiz> newList = list.stream().filter(i-> i.isActive() == true).collect(Collectors.toList());
+			 return ResponseEntity.status(HttpStatus.OK).body(newList);
 		 }else {
 			 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		 }
