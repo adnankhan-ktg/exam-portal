@@ -42,6 +42,11 @@ public class QuestionController {
 	public ResponseEntity<?> addQuestion(@RequestBody Question question)
 	{
 		log.info("Request came one the add question controller");
+		Question tempQuestion1 = this.questionService.getQuestion(question.getQuesid());
+		if(tempQuestion1 != null)
+		{
+			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
+		}
 		Question tempQuestion = this.questionService.addQuestion(question);
 		if(tempQuestion != null)
 		{
