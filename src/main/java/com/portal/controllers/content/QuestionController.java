@@ -42,6 +42,13 @@ public class QuestionController {
 	public ResponseEntity<?> addQuestion(@RequestBody Question question)
 	{
 		log.info("Request came one the add question controller");
+		
+		List<Question> list = this.questionService.getQuestions();
+		Question questionAuto = list.get(list.size() - 1);
+		
+		question.setQuesid(questionAuto.getQuesid() + 1);
+		System.out.print(question.getQuesid());
+		
 		Question tempQuestion1 = this.questionService.getQuestion(question.getQuesid());
 		if(tempQuestion1 != null)
 		{
