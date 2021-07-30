@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.portal.models.content.Category;
 import com.portal.models.content.Question;
 import com.portal.models.content.Quiz;
 import com.portal.repository.content.QuestionRepository;
@@ -36,6 +37,12 @@ public class QuizController {
 	{
 	    
 		log.info("Request came on the add Quiz controller");
+		List<Quiz> list = this.quizService.getQuizzez();
+		Quiz quizAuto = list.get(list.size() - 1);
+		
+		quiz.setQid(quizAuto.getQid() + 1);
+		System.out.print(quiz.getQid());
+		
 		
 		Quiz tempQuiz1 = this.quizService.getQuiz(quiz.getQid());
 		if(tempQuiz1 != null)
