@@ -40,10 +40,17 @@ public class CategoryController {
 		log.info("The request came on the Add_Category controller");
 		        
 		List<Category> list = this.categoryService.getCategories();
+		System.out.println(list.size());
+		if(list.size() == 0)
+		{
+			category.setCid(1);
+		}
+		else {
 		Category tempCat = list.get(list.size() - 1);
 		
 		category.setCid(tempCat.getCid() + 1);
 		System.out.print(category.getCid());
+		}
 		
 		         Category tempCategory = this.categoryService.getCategory(category.getCid());
 		         if(tempCategory != null)

@@ -38,10 +38,15 @@ public class QuizController {
 	    
 		log.info("Request came on the add Quiz controller");
 		List<Quiz> list = this.quizService.getQuizzez();
+		if(list.size() == 0)
+		{
+			quiz.setQid(1);
+		}else {
 		Quiz quizAuto = list.get(list.size() - 1);
 		
 		quiz.setQid(quizAuto.getQid() + 1);
 		System.out.print(quiz.getQid());
+		}
 		
 		
 		Quiz tempQuiz1 = this.quizService.getQuiz(quiz.getQid());
