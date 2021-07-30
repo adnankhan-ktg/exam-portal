@@ -37,6 +37,12 @@ public class QuizController {
 	    
 		log.info("Request came on the add Quiz controller");
 		
+		Quiz tempQuiz1 = this.quizService.getQuiz(quiz.getQid());
+		if(tempQuiz1 != null)
+		{
+			return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
+		}
+		
 		Quiz tempQuiz = this.quizService.addQuiz(quiz);
 		if(tempQuiz != null)
 		{
