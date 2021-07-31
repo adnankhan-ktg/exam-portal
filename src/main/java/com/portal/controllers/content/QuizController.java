@@ -66,7 +66,7 @@ public class QuizController {
 	}
 	
 	
-	@GetMapping("/get_quizzez")
+	@PostMapping("/get_quizzez")
 	public ResponseEntity<?> getQuizzez()
 	{
 		log.info("Request came on the the get Quiz controller");
