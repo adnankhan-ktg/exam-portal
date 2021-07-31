@@ -9,11 +9,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.portal.models.user.UserDashBoard;
 import com.portal.models.user.login.passwordforget.MailRequest;
+import com.portal.service.user.UserService;
 import com.portal.services.MailService;
 
 @RestController
@@ -22,6 +25,8 @@ public class ExamResult {
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(ExamResult.class);
 	@Autowired
 	private MailService mailService;
+	@Autowired
+	private UserService userService;
    
 	   
 	   @PostMapping("/send_result")
@@ -40,5 +45,22 @@ public class ExamResult {
         	mailService.attech(mailRequest, file);
         	
         	return ResponseEntity.status(HttpStatus.OK).build();
+	   }
+	   
+	   @PostMapping("/add_dashboard")
+	   public ResponseEntity<?> saveDashboard(@RequestBody UserDashBoard userDashBoard)
+	   {
+		   
+		   log.info("The Request came on the Dashboard controller");
+		   
+		   UserDashBoard userDashBoard2 = this.userService.saveDashboard(userDashBoard);
+		   if(userDashBoard2 != null)
+		   {
+			   return ResponseEntity.status(HttpStatus.OK).body(userDashBoard2);
+		   }
+		   else {
+			   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		   }
+	
 	   }
 }
