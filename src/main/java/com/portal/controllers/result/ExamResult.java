@@ -52,6 +52,10 @@ public class ExamResult {
 	   {
 		   
 		   log.info("The Request came on the Dashboard controller");
+		   UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+	                .getPrincipal();
+       	String username = userDetails.getUsername();
+       	userDashBoard.setUsername_ref(username);
 		   
 		   UserDashBoard userDashBoard2 = this.userService.saveDashboard(userDashBoard);
 		   if(userDashBoard2 != null)
