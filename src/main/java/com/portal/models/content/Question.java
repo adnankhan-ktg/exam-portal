@@ -17,12 +17,14 @@ public class Question {
 	private long quesid;
 	private String content;
 	private String image;
+	private String explanation;
 	private String option1;
 	private String option2;
 	private String option3;
 	private String option4;
 	private String answer;
 	private long qid;
+	
 	
 
 }
