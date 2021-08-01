@@ -1,5 +1,6 @@
 package com.portal.service.user.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,19 @@ private UserDashBoardRepository userDashBoardRepository;
 		
 		}
 	}
+
+	@Override
+	public List<UserDashBoard> getDashBoards() {
+		List<UserDashBoard> list = null;
+		try {
+		         list = this.userDashBoardRepository.findAll();
+		         return list;
+		}catch (Exception e) {
+		e.printStackTrace();
+		return list;
+		}
+	}
+	
 	
 
 }

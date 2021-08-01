@@ -1,6 +1,8 @@
 package com.portal.controllers.result;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,5 +69,19 @@ public class ExamResult {
 			   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		   }
 	
+	   }
+	   
+	   @GetMapping("/get_all_dashboard_data")
+	   public ResponseEntity<?> getAllDashboard()
+	   {
+		   List<UserDashBoard> list = null;
+		   list = this.userService.getDashBoards();
+		   if(list == null)
+		   {
+			   return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		   }
+		   else {
+			   return ResponseEntity.status(HttpStatus.OK).body(list);
+		   }
 	   }
 }
