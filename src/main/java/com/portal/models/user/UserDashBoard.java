@@ -22,6 +22,7 @@ public class UserDashBoard {
 	private String attemptedQuestion;
 	private String correctAnswer;
 	private String totalQuestion;
+	private String timeStamp;
 
 }
  
